@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
-const console = require('console.table');
+const console = require('console');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -26,7 +26,7 @@ const start = () => {
         }
     ]).then((answer) => {
         switch(answer.firstPrompt) {
-            case 'Add Departmentt':
+            case 'Add Department':
                 addDepartment();
                 break;
             case 'Add Role':
@@ -46,12 +46,13 @@ const start = () => {
             case 'Update Roles':
                 updateRoles();
                 break;
-            default: connection.end()
+            case 'Exit':
+                connection.end();
         }
     });
 };
 
-const addDepartment= () => {
+const addDepartment = () => {
     inquirer.prompt([
         {
             name:'departmentName',
@@ -92,7 +93,7 @@ const addRole = () => {
         }
     ]).then((answer) => {
         const query = connection.query(
-            'INSERT INTO role SET ?',
+            'INSERT INTO company_role SET ?',
             {
                 title: answer.role,
                 salary: answer.salary,
@@ -101,6 +102,52 @@ const addRole = () => {
             (err) => {
                 if (err) throw err;
                 console.log('Role Added Successfully')
+            }
+        );
+        start();
+    });
+};
+
+const addEmployee = () => {
+    inquirer.prompt([
+        {
+            name:'employeeID',
+            type: 'input',
+            message: 'Insert Employee ID'
+        },
+        {
+            name:'firstName',
+            type: 'input',
+            message: 'Insert Employee\'s first name'
+        },
+        {
+            name:'lastName',
+            type: 'input',
+            message: 'Insert Employee\'s surname'
+        },
+        {
+            name:'empRoleID',
+            type: 'input',
+            message: 'Insert Employee\'s role ID'
+        },
+        {
+            name:'managerID',
+            type: 'input',
+            message: 'Insert Employee\'s manager'
+        }
+    ]).then((answer) => {
+        const query = connection.query(
+            'INSERT INTO employees SET ?',
+            {
+                employee_id: answer.employeeID,
+                first_name: answer.firstName,
+                last_name: answer.lastName,
+                employee_role_id: answer.empRoleID,
+                manager_id: answer.managerID,
+            },
+            (err) => {
+                if (err) throw err;
+                console.log ('Employee Added Successfully')
             }
         );
         start();

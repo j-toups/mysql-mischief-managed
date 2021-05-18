@@ -14,7 +14,7 @@ connection.connect((err) => {
     if (err) throw err;
     console.log('connected');
     start();
-})
+});
 
 const start = () => {
     inquirer.prompt([
@@ -176,5 +176,37 @@ const viewEmployees = () => {
         if (err) throw err;
         console.table(res);
         start();
+    });
+};
+
+const updateRoles = () => {
+    inquirer.prompt([
+        {
+            name:'employeeID',
+            type:'input',
+            message: 'Insert ID number of employee you want to update.'
+        },
+        {
+            name: 'newRoleID',
+            type: 'input',
+            message:'What is the new role ID?'
+        }
+    ]).then((answer) => {
+        const query = connection.query(
+            'UPDATE employees SET ? WHERE ?',
+            [
+                {
+                    employee_role_id: answer.employeeID
+                },
+                {
+                    id: answer.newRoleID
+                }
+            ],
+        (err, res) => {
+            if (err) throw err;
+            console.log('Employee ID Updated');
+            start();
+        }
+        );
     });
 };

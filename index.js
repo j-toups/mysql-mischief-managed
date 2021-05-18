@@ -48,6 +48,7 @@ const start = () => {
                 break;
             case 'Exit':
                 connection.end();
+                break;
         }
     });
 };
@@ -113,27 +114,27 @@ const addEmployee = () => {
         {
             name:'employeeID',
             type: 'input',
-            message: 'Insert Employee ID'
+            message: 'Insert Employee ID',
         },
         {
             name:'firstName',
             type: 'input',
-            message: 'Insert Employee\'s first name'
+            message: 'Insert Employee\'s first name',
         },
         {
             name:'lastName',
             type: 'input',
-            message: 'Insert Employee\'s surname'
+            message: 'Insert Employee\'s surname',
         },
         {
             name:'empRoleID',
             type: 'input',
-            message: 'Insert Employee\'s role ID'
+            message: 'Insert Employee\'s role ID',
         },
         {
             name:'managerID',
             type: 'input',
-            message: 'Insert Employee\'s manager'
+            message: 'Insert Employee\'s manager',
         }
     ]).then((answer) => {
         const query = connection.query(
@@ -150,6 +151,30 @@ const addEmployee = () => {
                 console.log ('Employee Added Successfully')
             }
         );
+        start();
+    });
+};
+
+const viewDeparments = () => {
+    connection.query('SELECT * FROM department', (err, res)=> {
+        if (err) throw err;
+        console.table(res);
+        start();
+    });
+};
+
+const viewRoles = () => {
+    connection.query('SELECT * FROM roles INNER JOIN department ON (role.department_id = department.id)', (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        start();
+    });
+};
+
+const viewEmployees = () => {
+    connection.query('SELECT * FROM employees INNER JOIN company_role ON (employee.company_role.id = company_role.id)', (err, res) => {
+        if (err) throw err;
+        console.table(res);
         start();
     });
 };

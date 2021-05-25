@@ -80,12 +80,12 @@ const addRole = () => {
         {
             name: 'role',
             type: 'input',
-            message: 'What role do you want to add?',
+            message: 'What role do you want to add?'
         },
         {
             name: 'salary',
             type: 'input',
-            message: 'What is the salary for this role?',
+            message: 'What is the salary for this role?'
         },
         {
             name:'departmentID', 
@@ -96,9 +96,9 @@ const addRole = () => {
         const query = connection.query(
             'INSERT INTO company_role SET ?',
             {
-                title: answer.role,
+                role_id: answer.role,
                 salary: answer.salary,
-                department_id: answer.departmentID
+                dtp_id: answer.departmentID
             },
             (err) => {
                 if (err) throw err;
@@ -134,11 +134,11 @@ const addEmployee = () => {
         {
             name:'managerID',
             type: 'input',
-            message: 'Insert Employee\'s manager',
+            message: 'Insert Employee\'s manager'
         }
     ]).then((answer) => {
         const query = connection.query(
-            'INSERT INTO employees SET ?',
+            'INSERT INTO company_role SET ?',
             {
                 employee_id: answer.employeeID,
                 first_name: answer.firstName,
@@ -148,7 +148,7 @@ const addEmployee = () => {
             },
             (err) => {
                 if (err) throw err;
-                console.log ('Employee Added Successfully')
+                console.log('Employee Added Successfully')
             }
         );
         start();
@@ -164,7 +164,7 @@ const viewDeparments = () => {
 };
 
 const viewRoles = () => {
-    connection.query('SELECT * FROM roles INNER JOIN department ON (role.department_id = department.id)', (err, res) => {
+    connection.query('SELECT * FROM company_role INNER JOIN department ON (company_role.dept_id = department.department_id)', (err, res) => {
         if (err) throw err;
         console.table(res);
         start();

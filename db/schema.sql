@@ -12,11 +12,9 @@ CREATE TABLE department (
 CREATE TABLE company_role (
 	role_id int not null auto_increment,
     primary key (role_id),
-    title varchar(30) not null, 
+    -- title varchar(30) not null, 
     salary decimal not null, 
-    department_id int,
-    foreign key (department_id) references department(department_id)
-	);
+    dept_id int,
 
 CREATE TABLE employees (
     employee_id int not null auto_increment,
@@ -25,7 +23,5 @@ CREATE TABLE employees (
     last_name varchar(30) not null, 
     employee_role_id int not null, 
     manager_id int, 
-    foreign key (employee_role_id) references company_role(role_id),
-    foreign key (manager_id) references employees(employee_id)
 );
-    
+

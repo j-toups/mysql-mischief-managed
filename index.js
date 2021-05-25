@@ -64,7 +64,7 @@ const addDepartment = () => {
         const query = connection.query(
             'INSERT INTO department SET ?',
             {
-                department_name: answer.departmentName
+                name: answer.departmentName
             },
             (err) => {
                 if (err) throw err;
@@ -78,9 +78,9 @@ const addDepartment = () => {
 const addRole = () => {
     inquirer.prompt([
         {
-            name: 'role',
+            name: 'title',
             type: 'input',
-            message: 'What role do you want to add?'
+            message: 'What title do you want to add?'
         },
         {
             name: 'salary',
@@ -94,11 +94,11 @@ const addRole = () => {
         }
     ]).then((answer) => {
         const query = connection.query(
-            'INSERT INTO company_role SET ?',
+            'INSERT INTO role SET ?',
             {
-                role_id: answer.role,
+                title: answer.title,
                 salary: answer.salary,
-                dtp_id: answer.departmentID
+                department_id: answer.departmentID
             },
             (err) => {
                 if (err) throw err;
@@ -111,11 +111,6 @@ const addRole = () => {
 
 const addEmployee = () => {
     inquirer.prompt([
-        {
-            name:'employeeID',
-            type: 'input',
-            message: 'Insert Employee ID',
-        },
         {
             name:'firstName',
             type: 'input',
@@ -138,17 +133,15 @@ const addEmployee = () => {
         }
     ]).then((answer) => {
         const query = connection.query(
-            'INSERT INTO company_role SET ?',
+            'INSERT INTO employee SET ?',
             {
-                employee_id: answer.employeeID,
                 first_name: answer.firstName,
                 last_name: answer.lastName,
-                employee_role_id: answer.empRoleID,
+                role_id: answer.empRoleID,
                 manager_id: answer.managerID,
             },
             (err) => {
-                if (err) throw err;
-                console.log('Employee Added Successfully')
+                console.log("err adding employee", err);
             }
         );
         start();
@@ -164,7 +157,7 @@ const viewDeparments = () => {
 };
 
 const viewRoles = () => {
-    connection.query('SELECT * FROM company_role INNER JOIN department ON (company_role.dept_id = department.department_id)', (err, res) => {
+    connection.query('SELECT * FROM role INNER JOIN department ON (role.department_id = department.department_id)', (err, res) => {
         if (err) throw err;
         console.table(res);
         start();
@@ -172,7 +165,7 @@ const viewRoles = () => {
 };
 
 const viewEmployees = () => {
-    connection.query('SELECT * FROM employees INNER JOIN company_role ON (employee.company_role.id = company_role.id)', (err, res) => {
+    connection.query('SELECT * FROM employee INNER JOIN role ON (employee.role_id = role.role_id)', (err, res) => {
         if (err) throw err;
         console.table(res);
         start();

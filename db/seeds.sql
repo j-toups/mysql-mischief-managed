@@ -1,18 +1,30 @@
-Insert into department (dept_name) values ('Finance'), ('Engineering'), ('Legal');
-Insert	into	company_role (title, salary, department_id) values
-('Analyst', 60000.00, 1),
-('Associate Analyst', 70000.00, 1),
-('Senior Analyst', 80000.00, 1),
-('Engineer', 70000.00, 2),
-('Associate Engineer', 80000.00, 2),
-('Senior Engineer', 90000.00, 2),
-('Junior Attorney', 70000.00, 3),
-('Associate Attorney', 80000.00, 3),
-('Senior Associate', 90000.00, 3);
-
-Insert into employees (first_name, last_name, employee_role_id, manager_id) values
-('Pink', 'Ranger', 1, null),
-('Turtle', 'Dove', 2, 1),
-('Bob', 'Roberts', 3, null);
-
-
+use company_db;
+INSERT INTO department
+    (name)
+VALUES
+    ('Sales'),
+    ('Engineering'),
+    ('Finance'),
+    ('Legal');
+INSERT INTO role
+    (title, salary, department_id)
+VALUES
+    ('Sales Lead', 100000, 1),
+    ('Salesperson', 80000, 1),
+    ('Lead Engineer', 150000, 2),
+    ('Software Engineer', 120000, 2),
+    ('Account Manager', 160000, 3),
+    ('Accountant', 125000, 3),
+    ('Legal Team Lead', 250000, 4),
+    ('Lawyer', 190000, 4);
+INSERT INTO employee
+    (first_name, last_name, role_id, manager_id)
+VALUES
+    ('John', 'Doe', 1, NULL),
+    ('Mike', 'Chan', 2, 1),
+    ('Ashley', 'Rodriguez', 3, NULL),
+    ('Kevin', 'Tupik', 4, 3),
+    ('Kunal', 'Singh', 5, NULL),
+    ('Malia', 'Brown', 6, 5),
+    ('Sarah', 'Lourd', 7, NULL),
+    ('Tom', 'Allen', 8, 7);

@@ -4,7 +4,8 @@
 ## Description
 This application allows a user to view, add, and update employee information stored in a database. The app uses node, javascript, inquirer, and mysql.
 
-## Demo
+## Demo Link
+https://youtu.be/a7l_E4nHKkM
 
 ## Table of Contents
 * [Installation](#installation)

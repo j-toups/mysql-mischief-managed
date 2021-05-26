@@ -40,6 +40,7 @@ const start = () => {
                 break;
             case 'View Roles':
                 viewRoles();
+                break;
             case 'View Employees':
                 viewEmployees();
                 break;
@@ -52,7 +53,6 @@ const start = () => {
         }
     });
 };
-
 
 const addDepartment = () => {
     inquirer.prompt([
@@ -142,8 +142,7 @@ const addEmployee = () => {
                 manager_id: answer.managerID,
             },
             (err) => {
-                if (err) throw err;
-                console.log('Role Added Successfully')
+                console.log("err adding employee", err);
             }
         );
         start();
@@ -174,7 +173,6 @@ const viewEmployees = () => {
     });
 };
 
-
 const updateRoles = () => {
     inquirer.prompt([
         {
@@ -202,7 +200,7 @@ const updateRoles = () => {
             if (err) throw err;
             console.log('Employee ID Updated');
             start();
-            }
-        ); 
+        }
+        );
     });
 };

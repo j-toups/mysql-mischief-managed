@@ -53,6 +53,7 @@ const start = () => {
     });
 };
 
+
 const addDepartment = () => {
     inquirer.prompt([
         {
@@ -141,7 +142,8 @@ const addEmployee = () => {
                 manager_id: answer.managerID,
             },
             (err) => {
-                console.log("err adding employee", err);
+                if (err) throw err;
+                console.log('Role Added Successfully')
             }
         );
         start();
@@ -172,6 +174,7 @@ const viewEmployees = () => {
     });
 };
 
+
 const updateRoles = () => {
     inquirer.prompt([
         {
@@ -199,7 +202,7 @@ const updateRoles = () => {
             if (err) throw err;
             console.log('Employee ID Updated');
             start();
-        }
-        );
+            }
+        ); 
     });
 };
